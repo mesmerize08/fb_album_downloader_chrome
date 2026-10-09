@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Facebook Album Downloader</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <main>
+    <header class="app-header">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><rect x="3.5" y="7.5" width="25" height="18" rx="3" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16.5" r="5" stroke="currentColor" stroke-width="2"/><path d="M10 7V4.5h8L20 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </div>
+      <div><h1>Album Downloader</h1><p>Save the photos you can view on Facebook</p></div>
+    </header>
+
+    <section class="album-section" aria-labelledby="album-heading">
+      <div class="section-topline"><h2 id="album-heading">Current album</h2><span id="phase-label" class="phase-label">Checking…</span></div>
+      <p id="album" class="album-title">Looking for an album…</p>
+      <p id="owner" class="album-owner"></p>
+    </section>
+
+    <section class="workflow" aria-label="Album progress">
+      <ol class="steps">
+        <li id="step-discover" class="step"><span class="step-dot">1</span><span>Discover</span></li>
+        <li id="step-resolve" class="step"><span class="step-dot">2</span><span>Resolve</span></li>
+        <li id="step-download" class="step"><span class="step-dot">3</span><span>Download</span></li>
+      </ol>
+      <p id="message" class="message" role="status" aria-live="polite">Checking the current tab…</p>
+      <dl class="counts">
+        <div><dd id="discovered">0</dd><dt>Found</dt></div>
+        <div><dd id="resolved">0 / 0</dd><dt>Ready</dt></div>
+        <div><dd id="downloaded">0 / 0</dd><dt>Saved</dt></div>
+      </dl>
+      <div class="progress-group">
+        <div class="progress-heading"><label for="scan-progress">Scan and resolve</label><span id="scan-percent">0%</span></div>
+        <progress id="scan-progress" max="100" value="0"></progress>
+      </div>
+      <div class="progress-group">
+        <div class="progress-heading"><label for="download-progress">Download</label><span id="download-percent">0%</span></div>
+        <progress id="download-progress" max="100" value="0"></progress>
+      </div>
+    </section>
+
+    <div class="primary-actions">
+      <button id="scan" class="action-button primary">Scan Album</button>
+      <button id="download" class="action-button" disabled>Download All</button>
+    </div>
+    <div class="secondary-actions">
+      <button id="stop" disabled>Stop</button>
+      <button id="retry" disabled>Retry failed</button>
+      <button id="clear">Clear results</button>
+    </div>
+
+    <details class="disclosure" id="results-details">
+      <summary><span>Photo results <span id="results-count" class="summary-count">0</span></span><span class="chevron" aria-hidden="true"></span></summary>
+      <div class="results-head"><span>#</span><span>Status</span><span>Best available image</span></div>
+      <div id="results" class="results-list"></div>
+    </details>
+
+    <details class="disclosure settings" id="settings-details">
+      <summary><span>Settings</span><span class="chevron" aria-hidden="true"></span></summary>
+      <div class="settings-body">
+        <label class="check-option"><input id="fallback" type="checkbox" checked><span>Use a thumbnail when the viewer image is unavailable</span></label>
+        <label class="number-option" for="concurrency"><span>Simultaneous downloads</span><input id="concurrency" type="number" min="1" max="5" value="3"></label>
+        <p class="setting-help">Choose 1–5. Three is a good default.</p>
+        <label class="check-option"><input id="debug" type="checkbox"><span>Debug logging</span></label>
+      </div>
+    </details>
+  </main>
+  <script src="../shared/utils.js"></script>
+  <script src="../shared/messages.js"></script>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

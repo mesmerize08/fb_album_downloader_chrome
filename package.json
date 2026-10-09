@@ -1,0 +1,31 @@
+{
+  "name": "facebook-album-downloader",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chrome Manifest V3 extension that bulk-downloads full-resolution photos from a Facebook album you can view.",
+  "license": "MIT",
+  "author": "mesmerize08",
+  "homepage": "https://github.com/mesmerize08/fb_album_downloader_chrome#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mesmerize08/fb_album_downloader_chrome.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mesmerize08/fb_album_downloader_chrome/issues"
+  },
+  "keywords": [
+    "chrome-extension",
+    "manifest-v3",
+    "facebook",
+    "photos",
+    "album",
+    "downloader"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "icons": "python tools/make_icons.py"
+  }
+}

@@ -1,0 +1,48 @@
+name: Feature request
+description: Suggest an improvement.
+title: '[Feature]: '
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing, note what is out of scope for this project:
+
+        - Video downloading
+        - Reaching anything Facebook does not already show your logged-in session
+        - Automation beyond a user-initiated scan of a single open album
+        - Analytics, telemetry, or remotely hosted code
+        - Runtime dependencies
+
+        Everything else is fair game.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve
+      description: Describe the situation you hit, not just the feature you want.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like it to do
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: Including whether an existing setting or control nearly covers it.
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This does not require a runtime dependency, remote code, or any network destination other than Facebook.
+          required: true
+        - label: This does not access anything beyond what my own logged-in Facebook session can already see.
+          required: true

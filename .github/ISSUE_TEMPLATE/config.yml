@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/mesmerize08/fb_album_downloader_chrome/security/advisories/new
+    about: Report privately. Please do not open a public issue for a security problem.
+  - name: Question or general discussion
+    url: https://github.com/mesmerize08/fb_album_downloader_chrome/discussions
+    about: Ask how something works, or whether an idea is in scope, before filing an issue.
+  - name: Installation and usage help
+    url: https://github.com/mesmerize08/fb_album_downloader_chrome/blob/main/docs/USER_GUIDE.md
+    about: The user guide covers installation, settings, controls, and common problems.

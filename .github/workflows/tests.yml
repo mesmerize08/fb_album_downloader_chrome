@@ -1,0 +1,85 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['18', '20', '22']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # No `npm ci`: this project has no dependencies and no lockfile by design.
+      - name: Run tests
+        run: npm test
+
+  validate:
+    name: Validate extension package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: manifest.json is valid JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8'))"
+
+      - name: Every file referenced by the manifest exists
+        run: |
+          node -e "
+          const fs = require('fs');
+          const m = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+          const refs = [
+            m.background?.service_worker,
+            m.side_panel?.default_path,
+            ...Object.values(m.icons || {}),
+            ...Object.values(m.action?.default_icon || {}),
+            ...(m.content_scripts || []).flatMap(cs => cs.js || []),
+            ...(m.content_scripts || []).flatMap(cs => cs.css || []),
+          ].filter(Boolean);
+          const missing = refs.filter(p => !fs.existsSync(p));
+          if (missing.length) {
+            console.error('Missing files referenced by manifest.json:', missing);
+            process.exit(1);
+          }
+          console.log('All ' + refs.length + ' referenced files exist.');
+          "
+
+      - name: manifest version matches package.json
+        run: |
+          node -e "
+          const fs = require('fs');
+          const a = JSON.parse(fs.readFileSync('manifest.json', 'utf8')).version;
+          const b = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
+          if (a !== b) {
+            console.error('Version mismatch: manifest.json is ' + a + ', package.json is ' + b);
+            process.exit(1);
+          }
+          console.log('Version ' + a + ' is consistent.');
+          "
+
+      - name: No remote script or style references
+        run: |
+          if grep -rnE '(src|href)=["'\''](https?:)?//' --include='*.html' .; then
+            echo "Found a remote resource reference. Manifest V3 forbids remotely hosted code."
+            exit 1
+          fi
+          echo "No remote resource references found."

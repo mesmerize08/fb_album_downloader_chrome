@@ -1,0 +1,96 @@
+name: Album not detected or photos missing
+description: The panel says "No album open", or the scan finds fewer photos than the album contains.
+title: '[Adapter]: '
+labels: ['adapter', 'bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the most useful report you can file. The extension has only been
+        tested against one album format, and these failures are usually a
+        one-selector fix in `content/facebook-adapter.js`.
+
+        **Please redact before posting.** Issues are public. Replace numeric IDs
+        with `<id>`, and leave out album titles, owner names, and screenshots
+        containing other people's photos.
+
+  - type: dropdown
+    id: symptom
+    attributes:
+      label: What happened
+      options:
+        - The panel says "No album open" on a real album page
+        - The album was detected but zero photos were found
+        - Fewer photos were found than the album contains
+        - Photos were found but none resolved to a full image
+        - Something else
+    validations:
+      required: true
+
+  - type: input
+    id: url-shape
+    attributes:
+      label: Album URL shape
+      description: The URL with every numeric ID replaced by `<id>`.
+      placeholder: https://www.facebook.com/media/set/?set=a.<id>&type=3
+    validations:
+      required: true
+
+  - type: dropdown
+    id: album-type
+    attributes:
+      label: What kind of album is it
+      options:
+        - Public Page album
+        - Personal profile album
+        - Group album
+        - Tagged photos / "Photos of you"
+        - Event album
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: counts
+    attributes:
+      label: Counts
+      description: What Facebook's own "N Items" label said, and how many the panel found.
+      placeholder: Facebook said 142 Items; the panel found 96
+    validations:
+      required: true
+
+  - type: input
+    id: language
+    attributes:
+      label: Facebook interface language
+      description: Detection looks for the English "N Items" string, so this matters.
+      placeholder: English (UK)
+    validations:
+      required: true
+
+  - type: input
+    id: chrome
+    attributes:
+      label: Chrome version
+      description: From `chrome://version`, the first line.
+      placeholder: 131.0.6778.86
+    validations:
+      required: true
+
+  - type: textarea
+    id: debug
+    attributes:
+      label: Debug log
+      description: |
+        Optional but very helpful. Turn on **Debug logging** in the panel's
+        settings, scan again, then copy the `[FBAD]` lines from both consoles:
+        the Facebook page (F12) and the service worker (`chrome://extensions`
+        → the extension's **service worker** link).
+
+        Redact photo IDs and album titles.
+      render: text
+
+  - type: textarea
+    id: other
+    attributes:
+      label: Anything else

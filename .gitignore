@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build and release output
+dist/
+*.zip
+*.crx
+*.pem
+
+# Editor and OS noise
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local notes and scratch work that should not be published
+scratch/
+*.local.md
+.env
+.env.*
+
+# Python bytecode from tools/
+__pycache__/
+*.pyc

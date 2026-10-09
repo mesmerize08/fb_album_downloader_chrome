@@ -1,0 +1,88 @@
+name: Bug report
+description: Something else is broken — downloads, the panel, stopping, retrying.
+title: '[Bug]: '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For albums that are not detected, or scans that miss photos, please use
+        the **Album not detected** template instead — it asks for the specific
+        details those need.
+
+        Issues are public. Please redact album titles, owner names, photo IDs,
+        and any faces in screenshots.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open an album with about 40 photos
+        2. Click Scan Album and wait for "Ready to download"
+        3. Click Download All
+        4. ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Which phase
+      options:
+        - Discover (finding photos)
+        - Resolve (checking full images)
+        - Download (saving files)
+        - The side panel itself
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: chrome
+    attributes:
+      label: Chrome version
+      placeholder: 131.0.6778.86
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: Windows 11
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Extension version
+      description: From `chrome://extensions`, or the commit you loaded.
+      placeholder: 0.1.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Console output
+      description: |
+        Errors from the Facebook page console (F12) and the service worker
+        console (`chrome://extensions` → **service worker**). Turning on
+        **Debug logging** in settings adds `[FBAD]` traces.
+      render: text
